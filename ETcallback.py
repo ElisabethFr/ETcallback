@@ -1,7 +1,6 @@
 '''
-this is a script that does a simple callback to tobii eyetracker
-Goal: stream the data directly to hdf5 file, while keeping the last value in WM
-currently still a work in progress
+this is a script that does a simple callback to tobii eyetracker for use in psychopy
+streams the data directly to hdf5 file, while keeping the last value in memory
 
 Version: 10/23/2023
 author: Elisabeth Freund
