@@ -3,10 +3,16 @@ file to load eyetracking data and do some plots
 Oct 2023
 Author: Elisabeth Freund
 Human Brain Mapping Lab at Feinstein Institutes for Medical Research
+
+This script is intended to give a starting point to handling the eyetracking data resulting from my gaze callback.
+Most efficient data handling might be to deal with the hdf5 file throughout the entire pipeline (results in lower memory usage).
+However, it is also possible to load all data into a pandas dataframe (see below).
+Examples of accessing data in this script are indexing directly into the hdf5 file.
 """
 import os
 import h5py
 import numpy as np
+import pandas as pd
 
 import matplotlib
 matplotlib.use('QT5Agg')
@@ -18,8 +24,13 @@ datadir = 'C:\\Users\lisaf\Documents\git\ETcallback\\test'
 file = 'test1_eyetrackerData.h5'
 path = os.path.join(datadir, file)
 
+# read data
 with h5py.File(path, 'r') as io:
     data = io['ETdata'][:]
+    colnames = io['ETdata'].attrs['headers'][:]
+
+# create pandas dataframe of eyetracking data
+ETdata = pd.DataFrame(data=data,columns=colnames)
 
 # plot how the timestamps develop
 data = np.array(data)
